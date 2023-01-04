@@ -5,7 +5,6 @@ for nmap_output in f:
     nmap_output= f.read()
 
 # Regex pattern to find contexts in device
-#regex = re.compile(r"Nmap scan report for (?P<hostname>\w.+).cloudembratel.local (?P<ipadd>\S+[0-9].)")
 regex = re.compile(r"Nmap scan report for (?P<hostname>\w.+)")
 regex_os = re.compile(r"Service Info: (?P<OS>\S.+)")
 regex_ports = re.compile(r"(?:ssh)")
