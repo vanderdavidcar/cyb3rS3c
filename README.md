@@ -1,4 +1,4 @@
-# cybersec
+# CyberSec
 
 Looking for pattern as hostname, IP, ports, OS in nmap output.
 
@@ -14,6 +14,6 @@ nmap -sT -Sv -O -Pn -iL fping.txt
 ## search_nmap.py
 Is a function that have a regex patterns to find a specfic information o nmap output file
 
-# Regex pattern to find contexts in device
+## Regex pattern to find contexts in device
 regex = re.compile(r"Nmap scan report for (\w.+)")</br>
 regex_os = re.compile(r"Service Info: (\S.+)")
