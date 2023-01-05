@@ -10,7 +10,7 @@ fping -a -g 192.168.0.0/24 2>/dev/null > fping.txt
 ## NMAP
 run nmap in a file using -iL fping.txt to use only ICMP response.</br>
 e.g</br>
-nmap -sT -Sv -O -Pn -iL fping.txt
+nmap -n - sS --max-os-tries 1 -sT -Sv -O -Pn -v -iL fping.txt
 
 ## search_nmap.py
 Is a function that has a regex patterns to find a specfic information o nmap output file.
