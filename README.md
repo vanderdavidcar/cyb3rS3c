@@ -4,6 +4,7 @@ Looking for pattern as hostname, IP, ports, OS in nmap output.
 
 ## fping
 Using fping to find ICMP requests on network</br>
+e.g</br>
 fping -a -g 192.168.0.0/24 2>/dev/null > fping.txt
 
 ## NMAP
