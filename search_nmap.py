@@ -1,12 +1,7 @@
 import re
 import os
 
-#fping = open('fping.txt')
-#for ips in fping:
-#    ips= fping.read()
-
-#ips = ["s1", "s3", "s4", "s5", "s6"]
-ips = ["172.20.201.4", "172.20.201.50", "172.20.201.52"]
+ips = ["s1", "s3", "s4", "s5", "s6"]
 
 sudo = 'sudo'
 
