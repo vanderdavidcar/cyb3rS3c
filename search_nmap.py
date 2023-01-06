@@ -7,11 +7,19 @@ that have all IPs you need
 """
 ips = ["s1", "s3", "s4", "s5", "s6"]
 
+"""
+Another way to use a list of IPs
+"""
+IpAddres = open('nmap_output.txt', 'r')
+for nmap_output in ips:
+    nmap_output= ips.read()
+
+
 # Privilege mode
 sudo = 'sudo'
 
 # List of vuln ports to find in NMAP scan
-vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp"]
+vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp", "445/tcp"]
 
 """
 Regex pattern to use in function nmap()
