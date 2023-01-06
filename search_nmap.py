@@ -1,13 +1,20 @@
 import re
 import os
 
+"""
+List of IP Address that should be scanning, below two ways can you use with a simple list or open a file 
+that have all IPs you need
+"""
 ips = ["s1", "s3", "s4", "s5", "s6"]
+
+# Privilege mode
 sudo = 'sudo'
 
 # Regex pattern to find contexts in device
 regex = re.compile(r"Nmap scan report for (?P<hostname>\w.+)")
 regex_os = re.compile(r"Service Info: (?P<info_OS>\S.+)")
 open_ports = re.compile(r"(?P<open_ports>\d[0-9]*\w.tcp.+)")
+open_tcp = re.compile(r"(?P<open_tcp>\d[0-9]*\w.tcp)")
 
 def nmap():
     for hosts in ips:
@@ -41,21 +48,21 @@ def nmap():
         # Loop to find open ports
         for i in openOut:
             if "open" in i:
-                print(f'Open Port: {i}')
+                print(f'Open Port:{i}')
+        print(f'\n')
 
-        """
-        Looping below does not work yet, I'm working in this logic to find only a vulnerable ports based on list "vulnPorts"
-        """
-#        # Looking for exploitable ports open on device
-#        vulnPorts = [21, 23, 135, 139, 445, 3389]
-#        n = open(str(vulnPorts))
-#        #expVuln = n.read()
-#        print(n)
-#        
-#        # Looping to find vulnerableports
-#        for ports in openOut:
-#            if vulnPorts in ports:
-#                print(f'Vulnerable Port: {ports}')
-#            else:
-#                print(f'There are no Vulnerable port in {hosts}')
+        # Open TCP ports on nmap scan
+        openTCP = re.findall(open_tcp,cmdRead)
+        
+        # Vuln ports to find in NMAP
+        vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp"]
+
+        # Find users that doesn't match with variable users
+        for ports in openTCP:
+            if ports in vulnPorts:
+                print(f'Vulnerable Port:{ports}')
+
+        arquivo = open('output.txt', 'w')
+        print('informação', file=arquivo) 
+        arquivo.close()
 nmap()
