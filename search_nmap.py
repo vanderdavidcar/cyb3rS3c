@@ -61,8 +61,4 @@ def nmap():
         for ports in openTCP:
             if ports in vulnPorts:
                 print(f'Vulnerable Port:{ports}')
-
-        arquivo = open('output.txt', 'w')
-        print('informação', file=arquivo) 
-        arquivo.close()
 nmap()
