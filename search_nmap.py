@@ -2,6 +2,7 @@ import re
 import os
 
 ips = ["s1", "s3", "s4", "s5", "s6"]
+#ips = ["172.20.201.4", "172.20.201.50", "172.20.201.52"]
 sudo = 'sudo'
 
 # Regex pattern to find contexts in device
@@ -44,7 +45,7 @@ def nmap():
                 print(f'Open Port: {i}')
         
         """
-        Looping below does not work yet, I'm working in this logic to find only a vulnerable ports based on list "vuln"
+        Looping below does not work yet, I'm working in this logic to find only a vulnerable ports based on list "vulnPorts"
         """
 #        # Looking for exploitable ports open on device
 #        vulnPorts = [21, 23, 135, 139, 445, 3389]
