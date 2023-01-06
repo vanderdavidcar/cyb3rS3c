@@ -10,10 +10,23 @@ ips = ["s1", "s3", "s4", "s5", "s6"]
 # Privilege mode
 sudo = 'sudo'
 
-# Regex pattern to find contexts in device
+# List of vuln ports to find in NMAP scan
+vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp"]
+
+"""
+Regex pattern to use in function nmap()
+"""
+
+# Hostname
 regex = re.compile(r"Nmap scan report for (?P<hostname>\w.+)")
+
+# Operation System (Windows, Linux, Unix, Cisco...)
 regex_os = re.compile(r"Service Info: (?P<info_OS>\S.+)")
+
+# Open Ports
 open_ports = re.compile(r"(?P<open_ports>\d[0-9]*\w.tcp.+)")
+
+# Variable used to find vulnerable ports
 open_tcp = re.compile(r"(?P<open_tcp>\d[0-9]*\w.tcp)")
 
 def nmap():
@@ -53,11 +66,8 @@ def nmap():
 
         # Open TCP ports on nmap scan
         openTCP = re.findall(open_tcp,cmdRead)
-        
-        # Vuln ports to find in NMAP
-        vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp"]
 
-        # Find users that doesn't match with variable users
+        # If vulnPort match with openTCP show us
         for ports in openTCP:
             if ports in vulnPorts:
                 print(f'Vulnerable Port:{ports}')
