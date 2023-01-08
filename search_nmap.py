@@ -5,21 +5,21 @@ import os
 List of IP Address that should be scanning, below two ways can you use with a simple list or open a file 
 that have all IPs you need
 """
-ips = ["s1", "s3", "s4", "s5", "s6"]
+ips = ["pnetlab", "s1", "s3", "s4", "s5", "s6"]
 
 """
 Another way to use a list of IPs
 """
 IpAddres = open('nmap_output.txt', 'r')
-for nmap_output in ips:
-    nmap_output= ips.read()
+for nmap_output in IpAddres:
+    nmap_output= IpAddres.read()
 
 
 # Privilege mode
 sudo = 'sudo'
 
-# List of vuln ports to find in NMAP scan
-vulnPorts = ["21/tcp", "23/tcp", "3389/tcp", "139/tcp", "145/tcp", "445/tcp"]
+# The Most Vulnerable Ports to Check When Pentesting
+vulnPorts = ["20/tcp", "21/tcp", "22/tcp","23/tcp","25/tcp","69/tcp","80/tcp","8080/tcp","8443/tcp","443/tcp","53/tcp","3389/tcp", "137/tcp","139/tcp", "145/tcp", "445/tcp"]
 
 """
 Regex pattern to use in function nmap()

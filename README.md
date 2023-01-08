@@ -1,6 +1,9 @@
 # CyberSec
 
-Looking for pattern as hostname, IP, ports, OS in nmap output.
+Looking for pattern as hostname, IP, vulnerable ports, OS in nmap output.
+
+# The Most Vulnerable Ports to Check When Pentesting
+vulnPorts = ["20/tcp", "21/tcp", "22/tcp","23/tcp","25/tcp","69/tcp","80/tcp","8080/tcp","8443/tcp","443/tcp","53/tcp","3389/tcp", "137/tcp","139/tcp", "145/tcp", "445/tcp"]
 
 ## fping
 Using fping to find ICMP requests on network</br>
