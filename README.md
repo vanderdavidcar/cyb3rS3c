@@ -2,8 +2,8 @@
 
 Looking for pattern as hostname, IP, vulnerable ports, OS in nmap output.
 
-# The Most Vulnerable Ports to Check When Pentesting
-vulnPorts = ["20/tcp", "21/tcp", "22/tcp","23/tcp","25/tcp","69/tcp","80/tcp","8080/tcp","8443/tcp","443/tcp","53/tcp","3389/tcp", "137/tcp","139/tcp", "145/tcp", "445/tcp"]
+## The Most Vulnerable Ports to Check When Pentesting
+20, 21, 22, 23, 25, 69, 80, 8080, 8443, 443, 53, 3389, 137, 139, 145, 445
 
 ## fping
 Using fping to find ICMP requests on network</br>
