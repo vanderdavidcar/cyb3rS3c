@@ -6,7 +6,7 @@ import net_conn
 load_dotenv()
 
 
-lab = ["brbsa-bt02-mgmt-stk1-1"]
+lab = ["s1"]
 
 # Informações de conexão com o switch
 for ip in lab:
