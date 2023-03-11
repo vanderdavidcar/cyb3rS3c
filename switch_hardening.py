@@ -5,15 +5,15 @@ from netmiko.exceptions import SSHException
 import re
 import net_conn
 import auth
-
 """
-The main proposal here is to identify all interfaces unused on environment and disable to avoid man-in-the-middle.
-I'm using Netbox as Source of Truth to found and connect devices. 
-The function "net_conn.py" was imported to use Netmiko and function "auth.py" to pass all the parameters to authenticate.
+The main proposal here is to identify all interfaces on environment without that not using 
+and disable to avoid man-in-the-middle.
+
+I'm using Netbox as Source of Truth to connect in devices. Function net_conn imported to use Netmiko 
+and function auth to pass all the parameters to authenticate 
 """
-
-nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
-
+#nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
+nb_api = ["br-lp-spac02-mgmt-1-1", "brbsa-bt02-stor1-2", "brlp-spac09-leaf2-2"]
 """
 Loop devices find on Netbox
 """
@@ -27,7 +27,6 @@ for ip in nb_api:
     """
     try:
         net_connect = ConnectHandler(**ios)
-        output = net_connect.send_command("show interface status | in notconnect")
     except (NetmikoTimeoutException):
         print(f'Timeout to device: {ipadd}')
         continue
@@ -44,14 +43,10 @@ for ip in nb_api:
         print(f'Some other error: {str(unknown_error)}')
         continue
 
-    """
-    All environment has kinds of vendors, depends on devices the command should be different. In this case,
-    it is important to check which device is connecting to send the appropriate command. So I start to check
-    the version, if it is NX-OS send nxos command or if IOS send ios command.
-    """
-
     # Types of devices
-    list_versions = ['NX-OS','IOS']
+    list_versions = ['NX-OS', 
+                     'IOS'
+                     ]
 
     # Check software versions
     for software_ver in list_versions:
@@ -71,7 +66,6 @@ for ip in nb_api:
     elif software_ver == 'IOS':
         print ('Running ' + software_ver + ' commands')
         output = net_connect.send_command('show interface status | in notconnect')
-    
     """
     Regex pattern from NXOS
     """    
@@ -84,7 +78,7 @@ for ip in nb_api:
         match = int_pattern.search(output)
         interface = match.group("interface")
     except (AttributeError):
-        print('No such attribute')
+        print('No such attribute "notconnect interfaces"')
         continue
     
     # Regex pattern
@@ -97,7 +91,7 @@ for ip in nb_api:
         print(f'{int}')
 
         """
-        Device Hardening - Disable all interfaces matched with "notconnect or xcvrAbsent"
+        Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent"
         """
-        cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
-        print(cmd)
+        #cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
+        #print(cmd)
