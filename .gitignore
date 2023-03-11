@@ -1,4 +1,7 @@
 *.txt
 search_pattern.py
-.cfg
 notes
+auth.py
+.env
+net_conn.py
+*.cfg
