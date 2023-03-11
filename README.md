@@ -1,6 +1,6 @@
 # CyberSec
 
-Looking for pattern as hostname, IP, vulnerable ports, OS in nmap output.
+Some scripts that I am using like switch_hardening.py to disable all interfaces unused on environment and search_nmap.py that looking for pattern as hostname, IP, vulnerable ports, OS in nmap output.
 
 ## The Most Vulnerable Ports to Check When Pentesting
 20, 21, 22, 23, 25, 69, 80, 8080, 8443, 443, 53, 3389, 137, 139, 145, 445</br>
