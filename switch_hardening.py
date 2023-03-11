@@ -84,7 +84,7 @@ for ip in nb_api:
         match = int_pattern.search(output)
         interface = match.group("interface")
     except (AttributeError):
-        print('No such attribute "notconnect interfaces"')
+        print('No such attribute')
         continue
     
     # Regex pattern
@@ -97,7 +97,7 @@ for ip in nb_api:
         print(f'{int}')
 
         """
-        Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent"
+        Device Hardening - Disable all interfaces matched with "notconnect or xcvrAbsent"
         """
-        #cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
-        #print(cmd)
+        cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
+        print(cmd)
