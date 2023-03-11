@@ -6,16 +6,16 @@ import re
 import net_conn
 import auth
 """
-The main proposal here is to identify all interfaces on environment without that not using 
-and disable to avoid man-in-the-middle.
+The main proposal here is to identify all interfaces unused on environment and disable to avoid man-in-the-middle.
 
-I'm using Netbox as Source of Truth to connect in devices. Function net_conn imported to use Netmiko 
-and function auth to pass all the parameters to authenticate 
+I'm using Netbox as Source of Truth to found and connect devices. 
+
+The function "net_conn.py" was imported to use Netmiko and function "auth.py" to pass all the parameters to authenticate.
 """
 nb_api_ios = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
 
 """
-Loop devices find on Netbox
+Loop devices found on Netbox database
 """
 for ip in nb_api_ios:
     ipadd = str(ip)
@@ -45,12 +45,12 @@ for ip in nb_api_ios:
         continue
     
     """
-    Regex pattern from NXOS
+    Regex pattern to find all kinds of interfaces as Gigabit, Ethernet, TenGigabit and so on.
     """    
     int_pattern = re.compile(r"(?P<interface>\S+[A-Za-z][0-9].[0-9].[0-9]*)")
     
     """
-    Handle exception when does not have a specific match 
+    Handle exception when does not have a specific match in line 30 in this case "notconnect"
     """
     try:
         match = int_pattern.search(output)
@@ -63,13 +63,13 @@ for ip in nb_api_ios:
     all_int = re.findall(int_pattern, output)
 
     """
-    Loop to print all condition interfaces
+    Loop to print all interfaces matched in that condition
     """
     for int in all_int:
         print(f'{int}')
 
         """
-        Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent"
+        Device Hardening - Disable all interfaces that match after founded
         """
         cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
         print(cmd)
