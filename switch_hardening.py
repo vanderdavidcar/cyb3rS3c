@@ -12,8 +12,8 @@ and disable to avoid man-in-the-middle.
 I'm using Netbox as Source of Truth to connect in devices. Function net_conn imported to use Netmiko 
 and function auth to pass all the parameters to authenticate 
 """
-#nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
-nb_api = ["br-lp-spac02-mgmt-1-1", "brbsa-bt02-stor1-2", "brlp-spac09-leaf2-2"]
+nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
+
 """
 Loop devices find on Netbox
 """
@@ -93,5 +93,5 @@ for ip in nb_api:
         """
         Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent"
         """
-        #cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
-        #print(cmd)
+        cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
+        print(cmd)
