@@ -5,6 +5,11 @@ from netmiko.exceptions import SSHException
 import re
 import net_conn
 import auth
+import logging
+
+logging.basicConfig(filename='netmiko_global.log', level=logging.DEBUG)
+logger = logging.getLogger("netmiko")
+
 """
 The main proposal here is to identify all interfaces on environment without that not using 
 and disable to avoid man-in-the-middle.
@@ -12,14 +17,14 @@ and disable to avoid man-in-the-middle.
 I'm using Netbox as Source of Truth to connect in devices. Function net_conn imported to use Netmiko 
 and function auth to pass all the parameters to authenticate 
 """
-nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
-
+#nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
+nb_api = ["brbsa-bt02-mgmt-stk1-1"]
 """
 Loop devices find on Netbox
 """
 for ip in nb_api:
     ipadd = str(ip)
-    ios = net_conn.netmiko_nxos(ipadd)
+    ios = net_conn.netmiko_ios(ipadd)
     print(f"Connecting to {ipadd}")
     
     """
@@ -44,9 +49,7 @@ for ip in nb_api:
         continue
 
     # Types of devices
-    list_versions = ['NX-OS', 
-                     'IOS'
-                     ]
+    list_versions = ['NX-OS','IOS']
 
     # Check software versions
     for software_ver in list_versions:
@@ -55,17 +58,18 @@ for ip in nb_api:
         int_version = 0 # Reset integer value
         int_version = output_version.find(software_ver) # Check software version
         if int_version > 0:
-            print ('Software version found: ' + software_ver)
+            print(f'Software version found: {software_ver}')
             break
         else:
-            print ('Did not find ' + software_ver)
+            print(f'Did not find {software_ver}')
 
     if software_ver == 'NX-OS':
-        print ('Running ' + software_ver + ' commands')
+        print (f'Running {software_ver} commands')
         output = net_connect.send_command('show interface status | in xcvrAbsen')
     elif software_ver == 'IOS':
-        print ('Running ' + software_ver + ' commands')
-        output = net_connect.send_command('show interface status | in notconnect')
+        print (f'Running {software_ver} commands')
+        output = net_connect.send_command('show interface | in disabled')
+        print(output)
     """
     Regex pattern from NXOS
     """    
@@ -91,7 +95,7 @@ for ip in nb_api:
         print(f'{int}')
 
         """
-        Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent"
+        Device Hardening - Disable all interfaces match with "notconnect or xcvrAbsent" and put description
         """
-        cmd = net_connect.send_config_set(["interface " + int, "shutdown"])
+        cmd = net_connect.send_config_set([f'interface {int}', 'description LIVRE', 'shutdown'])
         print(cmd)
