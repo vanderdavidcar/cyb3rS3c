@@ -7,6 +7,7 @@ import net_conn
 import auth
 import logging
 
+# To show logging and troubleshooting in case of problems
 logging.basicConfig(filename='netmiko_global.log', level=logging.DEBUG)
 logger = logging.getLogger("netmiko")
 
@@ -17,8 +18,8 @@ and disable to avoid man-in-the-middle.
 I'm using Netbox as Source of Truth to connect in devices. Function net_conn imported to use Netmiko 
 and function auth to pass all the parameters to authenticate 
 """
-#nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
-nb_api = ["brbsa-bt02-mgmt-stk1-1"]
+nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
+
 """
 Loop devices find on Netbox
 """
