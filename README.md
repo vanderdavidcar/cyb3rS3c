@@ -1,4 +1,4 @@
-# CyberSec
+# Hardening - CyberSec
 
 Some scripts that I am using like switch_hardening.py to disable all interfaces unused on environment and search_nmap.py that looking for pattern as hostname, IP, vulnerable ports, OS in nmap output.
 
