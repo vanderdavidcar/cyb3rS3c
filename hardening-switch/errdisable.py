@@ -34,7 +34,7 @@ def errdisabled():
         print(f"Connecting to {ipadd}")
         net_connect = ConnectHandler(**ios)
         #output = net_connect.send_command('show interface status | in err')
-        output = net_connect.send_command('show interface status | in connected')
+        output = net_connect.send_command('show interface status | in err-disable')
         match = int_pattern.search(output)
         try:
             interface = match.group("interface")
@@ -43,7 +43,7 @@ def errdisabled():
             print('No such attribute')
             continue
         #if "err-disable" in output:
-        if "connected" in output:
+        if "err-disable" in output:
             print(f'\nInterfaces in err-disable status:\n{all_int}\n')
     
         for i in all_int:
