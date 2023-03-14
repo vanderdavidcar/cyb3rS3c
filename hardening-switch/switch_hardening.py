@@ -71,9 +71,11 @@ for ip in nb_api:
         print (f'Running {software_ver} commands')
         output = net_connect.send_command('show interface | in disabled')
         print(output)
+    
     """
     Regex pattern from NXOS
     """    
+    # Regex to match with all kinds of interfaces
     int_pattern = re.compile(r"(?P<interface>\S+[A-Za-z][0-9].[0-9].[0-9]*)")
     
     """
