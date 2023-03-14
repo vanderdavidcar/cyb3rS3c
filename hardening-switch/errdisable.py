@@ -15,10 +15,9 @@ I'm using Netbox as Source of Truth to connect in devices. Function net_conn imp
 and function auth to pass all the parameters to authenticate 
 """
 #nb_api = list(auth.nb.dcim.devices.filter("mgmt",model="9200"))
-#nb_api = list(auth.nb.dcim.devices.filter(platform="cisco-ios"))
+nb_api = list(auth.nb.dcim.devices.filter(platform="cisco-ios"))
 #nb_api = list(auth.nb.dcim.devices.filter(platform="cisco-nx-os"))
 #nb_api = list(auth.nb.dcim.devices.filter(platform="dellos"))
-nb_api = ["s1", "s2", "s3", "s4", "s5","s6"]
 print(f'All devices will be check:\n{nb_api}\n')
 
 # Regex pattern to find all kinds of interface like FastEthernet, GigabitEthernet, Ethernet, TenGigabiEthernet and so on..
@@ -33,7 +32,6 @@ def errdisabled():
         ios = net_conn.netmiko_lab(ipadd)
         print(f"Connecting to {ipadd}")
         net_connect = ConnectHandler(**ios)
-        #output = net_connect.send_command('show interface status | in err')
         output = net_connect.send_command('show interface status | in err-disable')
         match = int_pattern.search(output)
         try:
